@@ -143,7 +143,7 @@ h3{font-size:14px;font-weight:600;margin:14px 0 8px;}
 .rt-chip{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;color:#fff;white-space:nowrap;}
 .yn-yes{color:#22C55E;font-weight:700;}.yn-partial{color:#F59E0B;font-weight:700;}.yn-no{color:var(--failed);font-weight:700;}.yn-na{color:#94A3B8;}
 /* 툴팁 */
-.tip{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:rgba(0,100,2247,0.15);color:var(--primary);font-size:10px;font-weight:700;cursor:help;margin-left:5px;position:relative;vertical-align:middle;}
+.tip{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:rgba(0,100,224,0.15);color:var(--primary);font-size:10px;font-weight:700;cursor:help;margin-left:5px;position:relative;vertical-align:middle;}
 .tip-box{display:none;position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:#1A1D2E;color:#e5e8f0;font-size:12px;border-radius:10px;padding:14px;width:300px;z-index:200;line-height:1.7;font-weight:400;box-shadow:0 4px 20px rgba(0,0,0,0.25);}
 .tip-box::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1A1D2E;}
 .tip:hover .tip-box{display:block;}
@@ -280,7 +280,7 @@ h3{font-size:14px;font-weight:600;margin:14px 0 8px;}
   <div style="position:relative;height:120px;margin-bottom:10px;"><canvas id="avgChart"></canvas></div>
 </section>
 <section>
-  <h2>100인 고객여정 그래프 <span class="tip" style="color:#0064e0;background:rgba(0,100,2247,0.12);">?<div class="tip-box"><strong>감정 경험 곡선 (Emotional Journey Curve)</strong>서비스 디자인 방법론의 핵심 시각화 도구입니다. 각 라인은 개별 페르소나가 단계별로 경험하는 감정 점수를 나타내며, 점수 범위는 -2(매우 부정) ~ +2(매우 긍정)입니다.<br><br>이 방법은 Think-Aloud 프로토콜(NNG) 및 Experience Mapping(Adaptive Path)을 참고해, 실제 UT 세션에서 관찰하기 어려운 잠재적 감정 변화 구간을 사전에 가설화합니다.</div></span></h2>
+  <h2>100인 고객여정 그래프 <span class="tip" style="color:#0064e0;background:rgba(0,100,224,0.12);">?<div class="tip-box"><strong>감정 경험 곡선 (Emotional Journey Curve)</strong>서비스 디자인 방법론의 핵심 시각화 도구입니다. 각 라인은 개별 페르소나가 단계별로 경험하는 감정 점수를 나타내며, 점수 범위는 -2(매우 부정) ~ +2(매우 긍정)입니다.<br><br>이 방법은 Think-Aloud 프로토콜(NNG) 및 Experience Mapping(Adaptive Path)을 참고해, 실제 UT 세션에서 관찰하기 어려운 잠재적 감정 변화 구간을 사전에 가설화합니다.</div></span></h2>
   <p class="sec-desc">각 라인이 개별 페르소나의 단계별 경험 점수입니다. 라인을 클릭하면 페르소나 상세 정보가 표시됩니다.</p>
   <div class="legend-row" id="chart-legend"></div>
   <div class="filter-tabs" id="chart-filters"></div>
@@ -403,7 +403,7 @@ STAGES.forEach((stage, si) => {
 
 /* ── S3 발견 ── */
 document.getElementById("s3-findings").innerHTML=(DATA.keyFindings||[]).map(f=>
-  `<div class="finding-item"><span class="ev-badge"><svg class="ic" aria-hidden="true"><use href="#ic-tag"/></svg> ${f.badge}</span><span>${f.text}</span></div>`).join("");
+  `<div class="finding-item"><span class="ev-badge">🏷️ ${f.badge}</span><span>${f.text}</span></div>`).join("");
 
 /* ── S4 맥락 그리드 ── */
 const uc=DATA.usageContext||{};
@@ -465,9 +465,9 @@ TIME_BUCKETS.forEach(tb=>{
 /* ── S5 타겟 맥락 ── */
 const tc=DATA.targetContext||{};
 document.getElementById("s5-grid").innerHTML=[
-  {title:"<svg class="ic ic-ok" aria-hidden="true"><use href="#ic-check"/></svg> 강한 하위 맥락 (타겟 내)", items:tc.strongSubContexts||[]},
-  {title:"<svg class="ic ic-warn" aria-hidden="true"><use href="#ic-alert"/></svg> 약한 하위 맥락 (타겟 내)", items:tc.weakSubContexts||[]},
-  {title:"<svg class="ic" aria-hidden="true"><use href="#ic-bulb"/></svg> 예상 밖 패턴", items:tc.surprisingPatterns||[]},
+  {title:"✅ 강한 하위 맥락 (타겟 내)", items:tc.strongSubContexts||[]},
+  {title:"⚠️ 약한 하위 맥락 (타겟 내)", items:tc.weakSubContexts||[]},
+  {title:"💡 예상 밖 패턴", items:tc.surprisingPatterns||[]},
 ].map(b=>`<div class="ctx-box"><h4>${b.title}</h4><ul>${b.items.map(i=>`<li>${i}</li>`).join("")||"<li style='color:var(--text-secondary)'>-</li>"}</ul></div>`).join("");
 if(tc.utTargetNote) document.getElementById("s5-note").textContent="UT 제안: "+tc.utTargetNote;
 
@@ -521,7 +521,7 @@ document.getElementById("s6-hurdles").innerHTML=(DATA.usageHurdles||[]).map(h=>
     <div style="margin-bottom:5px"><span class="sev-badge ${h.severity}">${h.severity.toUpperCase()}</span><strong>${h.stage} · ${h.id}</strong></div>
     <div style="font-weight:600;margin-bottom:3px">${h.title}</div>
     <div style="font-size:13px;color:#6B7280;margin-bottom:5px">${h.description}</div>
-    <span class="ev-badge"><svg class="ic" aria-hidden="true"><use href="#ic-tag"/></svg> ${h.evidenceLabel}</span>
+    <span class="ev-badge">🏷️ ${h.evidenceLabel}</span>
     <span style="font-size:12px;color:#6B7280;margin-left:6px">영향: ${(h.affectedReactionTypes||[]).join(", ")}</span>
   </div>`).join("");
 
@@ -530,7 +530,7 @@ document.getElementById("s7-nonuse").innerHTML=(DATA.nonUsageContext||[]).map(nu
   `<div class="nonuse-card">
     <div style="font-weight:600;margin-bottom:3px">${nu.id} — ${nu.reason}</div>
     <div style="font-size:13px;color:#6B7280;margin:3px 0">${nu.context}</div>
-    <span class="${nu.isAcceptable?'nu-ok':'nu-risk'}">${nu.isAcceptable?'<svg class="ic ic-ok" aria-hidden="true"><use href="#ic-check"/></svg> 허용 가능':'<svg class="ic ic-warn" aria-hidden="true"><use href="#ic-alert"/></svg> 개선 필요'}</span>
+    <span class="${nu.isAcceptable?'nu-ok':'nu-risk'}">${nu.isAcceptable?'✅ 허용 가능':'⚠️ 개선 필요'}</span>
     ${nu.note?`<div style="font-size:12px;color:var(--text-secondary);margin-top:3px">${nu.note}</div>`:""}
   </div>`).join("");
 
@@ -634,12 +634,12 @@ function showPanel(idx){
     <div><span class="panel-id">${p.id}</span><span class="panel-rt" style="background:${colorFor(p.reactionType)}">${p.reactionType}</span></div>
     <div style="font-size:12px;color:#6B7280;margin:3px 0 6px">${p.summary||""}</div>
     <hr class="panel-div">
-    <div class="panel-lbl"><svg class="ic" aria-hidden="true"><use href="#ic-clock"/></svg> 터치포인트</div>
+    <div class="panel-lbl">🕒 터치포인트</div>
     <div style="font-size:12px;margin-bottom:6px">${p.lifeMoment||""}</div>
-    ${tp.dayOfWeek?`<div style="font-size:12px;color:#0064e0;margin-bottom:6px"><svg class="ic" aria-hidden="true"><use href="#ic-cal"/></svg> ${tp.dayOfWeek} ${tp.timeSlot||""}<br><span style="color:var(--text-secondary)">${tp.triggerContext||""}</span></div>`:""}
-    ${hh?`<div class="panel-lbl"><svg class="ic ic-warn" aria-hidden="true"><use href="#ic-alert"/></svg> 허들</div><div style="margin-bottom:6px">${hh}</div>`:""}
-    ${p.reasonUsed&&p.reasonUsed!=="null"?`<div class="panel-lbl"><svg class="ic ic-ok" aria-hidden="true"><use href="#ic-check"/></svg> 사용 이유</div><div style="font-size:12px;margin-bottom:6px">${p.reasonUsed}</div>`:""}
-    ${p.reasonNotUsed&&p.reasonNotUsed!=="null"?`<div class="panel-lbl"><svg class="ic ic-no" aria-hidden="true"><use href="#ic-x"/></svg> 미사용</div><div style="font-size:12px;margin-bottom:6px">${p.reasonNotUsed}</div>`:""}
+    ${tp.dayOfWeek?`<div style="font-size:12px;color:#0064e0;margin-bottom:6px">📅 ${tp.dayOfWeek} ${tp.timeSlot||""}<br><span style="color:var(--text-secondary)">${tp.triggerContext||""}</span></div>`:""}
+    ${hh?`<div class="panel-lbl">⚠️ 허들</div><div style="margin-bottom:6px">${hh}</div>`:""}
+    ${p.reasonUsed&&p.reasonUsed!=="null"?`<div class="panel-lbl">✅ 사용 이유</div><div style="font-size:12px;margin-bottom:6px">${p.reasonUsed}</div>`:""}
+    ${p.reasonNotUsed&&p.reasonNotUsed!=="null"?`<div class="panel-lbl">❌ 미사용</div><div style="font-size:12px;margin-bottom:6px">${p.reasonNotUsed}</div>`:""}
     ${jr?`<div class="panel-lbl">여정</div><div style="font-size:12px;margin-bottom:6px">${jr}</div>`:""}`;
 }
 
